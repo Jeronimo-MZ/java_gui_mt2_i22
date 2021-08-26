@@ -20,7 +20,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class NewWindow extends JFrame {
+public class NewWindow {
+    private JFrame frame;
     private JLabel lb_title;
     private JPanel container;
 
@@ -68,7 +69,7 @@ public class NewWindow extends JFrame {
         lb_title = new JLabel("Registro de Clientes");
         lb_title.setFont(new Font("Arial", Font.ITALIC, 36));
         lb_title.setForeground(Color.BLUE);
-        add("North", lb_title);
+        frame.add("North", lb_title);
 
         // form
 
@@ -146,7 +147,7 @@ public class NewWindow extends JFrame {
         container.setLayout(new GridLayout(0, 2, 10, 0));
         container.add(formPanel);
         container.add(panel2);
-        add("Center", container);
+        frame.add("Center", container);
 
         // buttons
         btn_save = new JButton("Gravar");
@@ -163,25 +164,26 @@ public class NewWindow extends JFrame {
         btn_save.addActionListener(e -> handleSave());
 
         btn_cancel.addActionListener((e) -> {
-            this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+            frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
         });
 
-        add("South", buttonsPanel);
+        frame.add("South", buttonsPanel);
 
         afterAll();
     }
 
     private void beforeAll() {
-        setSize(600, 400);
-        setTitle("Clientes");
-        setLayout(new BorderLayout());
+        frame = new JFrame();
+        frame.setSize(600, 400);
+        frame.setTitle("Clientes");
+        frame.setLayout(new BorderLayout());
     }
 
     private void afterAll() {
-        this.setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setVisible(true);
-        setResizable(false);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        frame.setResizable(false);
     }
 
     private void handleSave() {
